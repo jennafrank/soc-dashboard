@@ -1,0 +1,146 @@
+/* ── APP SHELL ─────────────────────────────────────────────── */
+.app {
+  min-height: 100vh;
+  background: #020817;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── HEADER ────────────────────────────────────────────────── */
+.soc-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: #0a0f1e;
+  border-bottom: 1px solid #1e293b;
+  overflow: hidden;
+}
+
+.scanlines {
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.15) 2px,
+    rgba(0, 0, 0, 0.15) 4px
+  );
+  pointer-events: none;
+}
+
+.header-inner {
+  position: relative;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 14px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  flex-wrap: wrap;
+}
+
+.header-left {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.header-title {
+  font-family: 'Courier New', monospace;
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 2px;
+}
+
+.header-bracket { color: #334155; }
+.header-soc { color: #4ade80; }
+.header-name { color: #94a3b8; }
+
+.header-sub {
+  font-family: monospace;
+  font-size: 10px;
+  color: #334155;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.header-btn {
+  padding: 6px 12px;
+  background: #1e293b;
+  border: 1px solid #334155;
+  color: #94a3b8;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: monospace;
+  font-size: 12px;
+  transition: all 0.15s;
+}
+.header-btn:hover { border-color: #4ade80; color: #4ade80; }
+.header-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+.header-btn-gold { border-color: #78350f; color: #fbbf24; }
+.header-btn-gold:hover { border-color: #fbbf24; }
+
+/* ── MAIN ──────────────────────────────────────────────────── */
+.main {
+  flex: 1;
+  max-width: 1280px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 24px 40px;
+}
+
+/* ── TAB BAR ───────────────────────────────────────────────── */
+.tab-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 16px 0 12px;
+  border-bottom: 1px solid #1e293b;
+  margin-bottom: 20px;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  padding: 8px 16px;
+  background: none;
+  border: 1px solid #1e293b;
+  color: #475569;
+  border-radius: 6px;
+  cursor: pointer;
+  font-family: monospace;
+  font-size: 12px;
+  transition: all 0.15s;
+}
+.tab-btn:hover { border-color: #334155; color: #94a3b8; }
+.tab-btn-active {
+  background: #14532d;
+  border-color: #4ade80;
+  color: #4ade80;
+}
+
+/* ── TAB CONTENT ───────────────────────────────────────────── */
+.tab-content {
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── RESPONSIVE ────────────────────────────────────────────── */
+@media (max-width: 640px) {
+  .header-inner { padding: 12px 16px; }
+  .main { padding: 0 16px 32px; }
+  .header-title { font-size: 14px; }
+}

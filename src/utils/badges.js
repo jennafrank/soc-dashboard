@@ -1,0 +1,226 @@
+// Badge definitions and award logic
+
+export const BADGES = [
+  // ── SHIFT BADGES ─────────────────────────────────────────────
+  {
+    id: 'first-shift',
+    name: 'First Shift',
+    emoji: '🕐',
+    description: 'Filed your first shift handoff',
+    category: 'shifts',
+    color: '#4ade80',
+    check: (a) => a.shifts >= 1,
+    progress: (a) => ({ current: a.shifts, target: 1 }),
+  },
+  {
+    id: 'five-shifts',
+    name: '5 Shifts',
+    emoji: '📋',
+    description: 'Completed 5 shift handoffs',
+    category: 'shifts',
+    color: '#4ade80',
+    check: (a) => a.shifts >= 5,
+    progress: (a) => ({ current: a.shifts, target: 5 }),
+  },
+  {
+    id: 'ten-shifts',
+    name: '10 Shifts',
+    emoji: '🔟',
+    description: 'Completed 10 shift handoffs',
+    category: 'shifts',
+    color: '#4ade80',
+    check: (a) => a.shifts >= 10,
+    progress: (a) => ({ current: a.shifts, target: 10 }),
+  },
+  {
+    id: 'twenty-five-shifts',
+    name: '25 Shifts',
+    emoji: '🌟',
+    description: 'Completed 25 shift handoffs',
+    category: 'shifts',
+    color: '#f59e0b',
+    check: (a) => a.shifts >= 25,
+    progress: (a) => ({ current: a.shifts, target: 25 }),
+  },
+  {
+    id: 'fifty-shifts',
+    name: '50 Shifts',
+    emoji: '🏆',
+    description: 'Completed 50 shift handoffs — veteran operator',
+    category: 'shifts',
+    color: '#f59e0b',
+    check: (a) => a.shifts >= 50,
+    progress: (a) => ({ current: a.shifts, target: 50 }),
+  },
+  {
+    id: 'night-owl',
+    name: 'Night Owl',
+    emoji: '🦉',
+    description: 'Filed a handoff during the midnight shift (12am–6am)',
+    category: 'shifts',
+    color: '#818cf8',
+    check: (a) => a.nightOwlShifts >= 1,
+    progress: (a) => ({ current: a.nightOwlShifts, target: 1 }),
+  },
+  {
+    id: 'smooth-handoff',
+    name: 'Smooth Handoff',
+    emoji: '🤝',
+    description: 'Filed 5+ shifts with no missing handoff flags',
+    category: 'shifts',
+    color: '#4ade80',
+    check: (a) => a.smoothHandoffShifts >= 5,
+    progress: (a) => ({ current: a.smoothHandoffShifts, target: 5 }),
+  },
+
+  // ── TRACKING BADGES ──────────────────────────────────────────
+  {
+    id: 'first-case',
+    name: 'First Case',
+    emoji: '🔍',
+    description: 'Opened your first tracking case',
+    category: 'tracking',
+    color: '#38bdf8',
+    check: (a) => a.cases >= 1,
+    progress: (a) => ({ current: a.cases, target: 1 }),
+  },
+  {
+    id: 'chain-puller',
+    name: 'Chain Puller',
+    emoji: '⛓️',
+    description: 'Traced 5 full attacker chains',
+    category: 'tracking',
+    color: '#38bdf8',
+    check: (a) => a.chainTraced >= 5,
+    progress: (a) => ({ current: a.chainTraced, target: 5 }),
+  },
+  {
+    id: 'kill-chain',
+    name: 'Kill Chain',
+    emoji: '💀',
+    description: 'Documented a complete attacker kill chain',
+    category: 'tracking',
+    color: '#ef4444',
+    check: (a) => a.killChains >= 1,
+    progress: (a) => ({ current: a.killChains, target: 1 }),
+  },
+  {
+    id: 'honeypot-watcher',
+    name: 'Honeypot Watcher',
+    emoji: '🍯',
+    description: 'Documented a honeypot hit',
+    category: 'tracking',
+    color: '#fb923c',
+    check: (a) => a.honeypotHits >= 1,
+    progress: (a) => ({ current: a.honeypotHits, target: 1 }),
+  },
+  {
+    id: 'geo-hunter',
+    name: 'Geo Hunter',
+    emoji: '🌍',
+    description: 'Geo-identified an attacker origin',
+    category: 'tracking',
+    color: '#34d399',
+    check: (a) => a.geoIdentified >= 1,
+    progress: (a) => ({ current: a.geoIdentified, target: 1 }),
+  },
+
+  // ── ESCALATION / DETECTION BADGES ───────────────────────────
+  {
+    id: 'escalation-pro',
+    name: 'Escalation Pro',
+    emoji: '📡',
+    description: 'Filed 3+ escalations',
+    category: 'detection',
+    color: '#f59e0b',
+    check: (a) => a.escalations >= 3,
+    progress: (a) => ({ current: a.escalations, target: 3 }),
+  },
+  {
+    id: 'rule-writer',
+    name: 'Rule Writer',
+    emoji: '📝',
+    description: 'Submitted a detection gap or new detection rule',
+    category: 'detection',
+    color: '#a78bfa',
+    check: (a) => a.detections >= 1,
+    progress: (a) => ({ current: a.detections, target: 1 }),
+  },
+
+  // ── TEAM / LEADERSHIP BADGES ─────────────────────────────────
+  {
+    id: 'mentor',
+    name: 'Mentor',
+    emoji: '🎓',
+    description: 'Mentored another analyst (tracked via mentored label)',
+    category: 'leadership',
+    color: '#f472b6',
+    check: (a) => a.mentored >= 1,
+    progress: (a) => ({ current: a.mentored, target: 1 }),
+  },
+
+  // ── MANUALLY AWARDED BADGES ──────────────────────────────────
+  {
+    id: 'speed-demon',
+    name: 'Speed Demon',
+    emoji: '⚡',
+    description: 'Manually awarded — exceptionally fast investigation',
+    category: 'special',
+    color: '#fbbf24',
+    check: (a) => (a.labelBadges || []).includes('badge-speed-demon'),
+    progress: null,
+    manual: true,
+  },
+  {
+    id: 'unicorn',
+    name: 'Unicorn',
+    emoji: '🦄',
+    description: 'Manually awarded — rare and exceptional contribution',
+    category: 'special',
+    color: '#e879f9',
+    check: (a) => (a.labelBadges || []).includes('badge-unicorn'),
+    progress: null,
+    manual: true,
+  },
+  {
+    id: 'zero-day-vibes',
+    name: 'Zero Day Vibes',
+    emoji: '💥',
+    description: 'Manually awarded — found something nobody expected',
+    category: 'special',
+    color: '#f87171',
+    check: (a) => (a.labelBadges || []).includes('badge-zero-day'),
+    progress: null,
+    manual: true,
+  },
+  {
+    id: 'hype',
+    name: 'Hype',
+    emoji: '🔥',
+    description: 'Awarded by SOC Lead — for exceptional energy and contribution',
+    category: 'special',
+    color: '#fb923c',
+    check: (a) => (a.labelBadges || []).includes('badge-hype'),
+    progress: null,
+    manual: true,
+  },
+];
+
+export function computeBadges(analyst) {
+  return BADGES.map((badge) => ({
+    ...badge,
+    earned: badge.check(analyst),
+  }));
+}
+
+export function earnedCount(analyst) {
+  return BADGES.filter((b) => b.check(analyst)).length;
+}
+
+export const BADGE_CATEGORIES = {
+  shifts: { label: 'Shift Ops', color: '#4ade80' },
+  tracking: { label: 'Threat Tracking', color: '#38bdf8' },
+  detection: { label: 'Detection & Escalation', color: '#f59e0b' },
+  leadership: { label: 'Leadership', color: '#f472b6' },
+  special: { label: 'Special Awards', color: '#e879f9' },
+};
